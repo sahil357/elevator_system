@@ -59,11 +59,11 @@ class ElevatorDoorStatus(View):
         
         elevator = e.first()
         
-        status_mapping = cache.get("door_status", None) 
+        status_mapping = cache.get("door_status", None)
         if not door_status:
-            if not status_mapping:
+            if not status_mapping or status_mapping.get(elevator.id, None) == None:
                 return HttpResponse(' Elevator ' + str(elevator.id) + ' is Closed')
-            return HttpResponse(' Elevator ' + str(elevator.id) + ' is ' + door_status_mapping.get(elevator.id, 'Closed'))
+            return HttpResponse(' Elevator ' + str(elevator.id) + ' is ' + status_mapping.get(elevator.id, 'Closed').title())
         
         if status_mapping == None:
             status_mapping = {}
@@ -76,7 +76,7 @@ class ElevatorDoorStatus(View):
         travel_log = ElevatorTravelLog.objects.create(elevator_id=elevator, request_from=2, request_status=1, 
                         request_door=door_status_mapping.get(door_status, None))
         travel_log.save()
-        return HttpResponse('Updated door request of Elevator ' + str(elevator.id) + ' - ' + door_status)
+        return HttpResponse('Updated door request of Elevator ' + str(elevator.id) + ' - ' + door_status.title())
 
 #to handle the elevator request and also display all travel logs of an elevator
 class ElevatorTravel(View):
@@ -187,7 +187,7 @@ class ElevatorCurrentStatus(View):
             return HttpResponse('Elevator does not exist')
         
         elevator = e.first()
-        return HttpResponse("Elevator - " + str(elevator.id) + " is at floor " + str(elevator.floor) + " for which it travelled in direction - " + elevator.get_last_travel_direction() )
+        return HttpResponse("Elevator - " + str(elevator.id) + " is at floor " + str(elevator.floor) + " for which it travelled in direction - " + str(elevator.get_last_travel_direction()) )
 
 
 

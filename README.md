@@ -56,3 +56,7 @@ elevator_system contains
 1. Elevator -> fields: id(unique elevator id), floor(default = 0, Integer), status (working, in maintainace, not working), last_travel_direction(up, down)
 
 2. ElevatorTravelLog -> fields: elevator_id(from above db), request_from(Inside, outside), request_status(success, failure), request_door(close, open), failure_reason (list of all the reasons for failure), floor_from, floor_to, created_at(saving time of request)
+
+# Api's
+doc link with screenshot:
+https://docs.google.com/document/d/1TLcbo8OKLvuhDhDfwB1QoGi8Sw68RB8q4nxyz73ZYUg/edit

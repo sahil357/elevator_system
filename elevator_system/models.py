@@ -61,7 +61,7 @@ class ElevatorTravelLog(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return 'Travel details of Elevator' + str(elevator_id)
+        return 'Travel details of Elevator' + str(self.elevator_id.id)
 
     def get_request_from(self):
         return dict(REQUESTION_OPTIONS).get(self.request_from)
